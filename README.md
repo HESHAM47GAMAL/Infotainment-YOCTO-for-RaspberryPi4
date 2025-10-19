@@ -8,8 +8,12 @@
 This system image was **built using the Yocto Project (Kirkstone branch)** for the **Raspberry Pi 4 (64-bit)** target.  
 It includes the following key packages and configurations:
 - `SSH` — for remote access
-- `WiFi` — for support wireless connectivity
-- Nano editor - for basic text editing  
+- `WiFi` — for supporting wireless connectivity
+- `Nano editor` — for basic text editing
+- `Qt5` — for GUI application development
+- `RPI` — for screen mirroring for MAC OS and `scrcpy` — for screen mirroring for Android OS
+- `ALSA` — for audio playing
+- `Hello Application` — native C++ application
 
 <img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/1.Infotainment_System.png">
 
