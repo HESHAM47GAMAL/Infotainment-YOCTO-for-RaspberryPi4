@@ -1,7 +1,7 @@
 # Infotainment-YOCTO-for-RaspberryPi4
 ## 📑 Table of Contents
-- [Project_Overview](#project_overview)
-- [System _Requirements](#system_requirements)
+- [Project_Overview](#Project_Overview)
+- [System_Requirements](#System_Requirements)
 - [Flashing_to_SD_Card](#Flashing_to_SD_Card)
 
 ## 🧩 Project_Overview
