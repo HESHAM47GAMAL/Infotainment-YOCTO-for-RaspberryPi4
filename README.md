@@ -18,7 +18,7 @@ It includes the following key packages and configurations:
 <img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/1.Infotainment_System.png">
 
 <p>The project is built using **kernel version 5.15.x** and uses systemd as the init system</p>
-<p>I will follow this architecture overview</p>
+<p>I will follow this **architecture overview**</p>
 
 <img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/2.architecture%20overview.png">
 
