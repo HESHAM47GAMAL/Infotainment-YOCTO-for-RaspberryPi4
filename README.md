@@ -1,7 +1,7 @@
 # Infotainment-YOCTO-for-RaspberryPi4
 ## 📑 Table of Contents
 - [Project_Overview](#Project_Overview)
-- [System_Requirements](#System_Requirements)
+- [🧠System_Requirements](#System_Requirements)
 - [Flashing_to_SD_Card](#Flashing_to_SD_Card)
 
 ## 🧩 Project_Overview
@@ -11,6 +11,6 @@ It includes the following key packages and configurations:
 <img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/1.Infotainment_System.png">
 
 
-## 🧠 System_Requirements
+## 🧠System_Requirements
 
-## 💾 Flashing_to_SD_Card
+## Flashing_to_SD_Card
