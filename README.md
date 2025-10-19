@@ -1,2 +1,5 @@
 # Infotainment-YOCTO-for-RaspberryPi4
-Infotainment YOCTO based Project for Raspberry pi 
+## 📑 Table of Contents
+- [Project Overview](#project-overview)
+
+## 🧩 Project Overview
