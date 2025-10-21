@@ -36,15 +36,33 @@ It includes the following key packages and configurations:
 
 ### Pre-Development_Stage
 Here, prepare the host machine to be  ready to create an image using YOCTO
-1. Download Yocto extension in VS Code
+
+- Download Yocto extension in VS Code
   <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/3.YOCTO_extension.png">
 
-2. Install Yocto dependencies
+- Install Yocto dependencies
   ```bash
   sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev python3-subunit mesa-common-dev zstd liblz4-tool file locales libacl1
   sudo locale-gen en_US.UTF-8
   ```
+- Choose YOCTO Release
+  <p>Here, I will use Kirkstone version</p>
+  <p>You can see more about releases [link](https://wiki.yoctoproject.org/wiki/Releases)</p>
 
+- Clone Poky Kirkstone version  
+  <p>To clone Poky, run this command in the path you want </p>
+  
+  ```bash
+  git clone -b kirkstone https://github.com/yoctoproject/poky
+  ```
+  
+- Understand Poky
+  **Poky** is the **reference** distribution of the Yocto Project — it’s not a Linux distribution itself, but rather a build system (based on BitBake) and a set of metadata that allow you to build your own custom Linux distribution.
+  - `Bitbake` — The build engine — parses recipes, resolves dependencies, and executes build tasks.
+  - `Metadata` - Describe what to build and how to build it. This includes recipes (.bb), classes (.bbclass), and configuration files (.conf).
+  - `OpenEmbedded` - The core layer that provides the essential Linux components and build metadata
+  - `Metadata-poky` - Poky-specific configuration layer
+  <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/4.poky_structure.png">
 
 ### Development_Stage
 
