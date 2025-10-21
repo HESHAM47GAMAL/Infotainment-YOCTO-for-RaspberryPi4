@@ -3,7 +3,7 @@
 - ⚡[Project_Overview](#Project_Overview)
 - [🧠YOCTO_System_Requirements](#YOCTO_System_Requirements)
 - [💾Flashing_to_SD_Card](#Flashing_to_SD_Card)
-- [Developmnent_Process](#Developmnent_Process)
+- [Developmnent_Phases](#Developmnent_Phases)
   - [Pre-Development_Stage](#Pre-Development_Stage)
   - [Development_Stage](#Development_Stage)
   - [Post-Development_Stage](#Post-Development_Stage)
@@ -31,9 +31,12 @@ It includes the following key packages and configurations:
 - `RAM` — to build an image, you need at least 8 Gbytes of RAM
 - `YOCTO` - current release **Kirkstone** supported in **Ubuntu 20.04** and **Ubuntu 22.04**
 
-## Developmnent_Process
+## Developmnent_Phases
+<p>Development is divided into phases to facilitate Development process</p>
 
 ### Pre-Development_Stage
+<p>Here, prepare the host machine to be  ready to create an image using YOCTO</p>
+
 
 ### Development_Stage
 
