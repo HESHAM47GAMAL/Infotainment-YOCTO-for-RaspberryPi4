@@ -31,4 +31,12 @@ It includes the following key packages and configurations:
 - `RAM` — to build an image, you need at least 8 Gbytes of RAM
 - `YOCTO` - current release **Kirkstone** supported in **Ubuntu 20.04** and **Ubuntu 22.04**
 
+## Developmnent_Process
+
+### Pre-Development_Stage
+
+### Development_Stage
+
+### Post-Development_Stage
+
 ## 💾Flashing_to_SD_Card
