@@ -35,7 +35,7 @@ It includes the following key packages and configurations:
 <p>Development is divided into phases to facilitate Development process</p>
 
 ### Pre-Development_Stage
- <p>Here, prepare the host machine to be  ready to create an image using YOCTO</p>
+<p>Here, prepare the host machine to be  ready to create an image using YOCTO</p>
     1. Download Yocto extension in VS Code
   <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/3.YOCTO_extension.png">
     2. Install Yocto dependencies 
