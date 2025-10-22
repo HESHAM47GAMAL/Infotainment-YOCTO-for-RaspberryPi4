@@ -84,14 +84,16 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
   ```
 - Choose YOCTO Release
   <p>Here, I will use Kirkstone version</p>
-  <p>You can see more about releases [link](https://wiki.yoctoproject.org/wiki/Releases)</p>
+  
+  You can see more about releases [link](https://wiki.yoctoproject.org/wiki/Releases).
 
 - Clone Poky Kirkstone version  
-  <p>To clone Poky, run this command in the path you want </p>
+  To clone Poky, run this command in the path you want (will assume that current path is **~/YOCTO** and will run following command)
   
   ```bash
   git clone -b kirkstone https://github.com/yoctoproject/poky
   ```
+  So, poky path is **~/YOCTO/poky**
   
 - Understand Poky
   **Poky** is the **reference** distribution of the Yocto Project — it’s not a Linux distribution itself, but rather a build system (based on BitBake) and a set of metadata that allow you to build your own custom Linux distribution.
@@ -102,7 +104,52 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
   <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/4.poky_structure.png">
 
 ### Development_Stage
-  Here, I will integrate and create all recipes needed to create an image
+  Here, I will integrate and create all recipes needed to create an image<br>
+  
+  - Integrate BSP layer for Raspberry Pi 4 [Go to](https://layers.openembedded.org/layerindex/branch/master/layers/)
+    search for **meta-raspberrypi** and choose it
+      
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/5.meta_raspberryPi.png">
+    
+    this is confirmation that this BSP will provide full functionality for my HW
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/7.Machines.png">
+    
+    ```bash
+    cd ~/YOCTO/poky
+    git clone -b kirkstone git://git.yoctoproject.org/meta-raspberrypi
+    source oe-init-build-env
+    bitbake-layers add-layer ../meta-raspberrypi/
+    ```
+    this is test image provided you can use it to test that HW work right
+    
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/8.testImgae.png">
+    
+    you need to change machine that will create image for 
+    
+    ```bash
+    cd cd ~/YOCTO/poky/build/conf
+    vi local.conf
+    # change MACHINE variable from qemuarm64 to raspberrypi4-64 to be final
+    MACHINE ??= "raspberrypi4-64"
+    # in same file add following lines that control number of core used during running build engine(bitbake) this mean that I will use 8 cores from CPu as I have 12 core you can know number of cores you have $lscpu
+    BB_NUMBER_THREADS="8"
+    PARALLEL_MAKE="-j 8"
+    ```
+    
+    will run this command to confirm generation image complete without problem
+
+    ```bash
+    bitbake rpi-test-image
+    ```
+  - Integrate SW layer (Qt-5) [Go to](https://layers.openembedded.org/layerindex/branch/master/layers/)
+    search for **meta-qt5** and choose it
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/9.qt5.png">
+    
+
+     
+    
   
 ### Post-Development_Stage
 
