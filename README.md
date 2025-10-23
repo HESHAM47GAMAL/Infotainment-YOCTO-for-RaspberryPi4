@@ -109,9 +109,13 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
   - Integrate **BSP layer** for Raspberry Pi 4 [Go to](https://layers.openembedded.org/layerindex/branch/master/layers/)
     search for **meta-raspberrypi** and choose it
       
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/5.meta_raspberryPi.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/5.raspberryPi_layer.png">
+
+    Here, look at the repo link
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/6.RaspberryRepoLink.png">
     
-    this is confirmation that this BSP will provide full functionality for my HW
+    This is confirmation that this BSP will provide full functionality for my HW
 
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/7.Machines.png">
     
@@ -137,7 +141,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     PARALLEL_MAKE="-j 8"
     ```
     
-    will run this command to confirm generation image complete without problem
+    will run this command to confirm the generation image is complete without problem
 
     ```bash
     bitbake rpi-test-image
@@ -145,10 +149,45 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
   - Integrate **SW layer** (Qt-5) [Go to](https://layers.openembedded.org/layerindex/branch/master/layers/)
     search for **meta-qt5** and choose it
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/9.qt5.png">
-    
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/9.Meta_qt5.png">
 
-     
+    Here, look at the repo link and Dependencies
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/10.QTRepoLink.png">
+
+    ```bash
+    cd ~/YOCTO/poky
+    git clone -b kirkstone https://github.com/meta-qt5/meta-qt5.git
+    cd ~/YOCTO/poky/build
+    bitbake-layers add-layer ../meta-qt5/
+    ```
+    during run command **bitbake-layers add-layer ../meta-qt5/** will face this error
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/11.ErrorIntegrateqt5.png">
+
+    explain this error how introduced
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/12.qtResolveDependencies.png">
+
+    So, will clone **openEmbedded-core**
+
+    ```bash
+    cd ~/YOCTO/poky
+    git clone -b kirkstone git://git.openembedded.org/meta-openembedded
+    cd ~/YOCTO/poky/meta-openembedded
+    ls
+    ```
+    will find that it consists of multiple layers
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/13.recipesOpenEmbedded.png">
+
+    From  Dependencies for **Qt5** we only interested **meta-oe** layer
+
+    ```bash
+    cd ~/YOCTO/poky/build
+    bitbake-layers add-layer meta-openembedded/meta-oe
+    bitbake-layers add-layer ../meta-qt5/
+    ```
     
   
 ### Post-Development_Stage
