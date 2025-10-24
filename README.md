@@ -188,6 +188,17 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     bitbake-layers add-layer meta-openembedded/meta-oe
     bitbake-layers add-layer ../meta-qt5/
     ```
+  - Create SW Layer
+    This layer will be used to integrate all layers. Follow the next command lines to create a  layer and add it to **bblayers.conf**
+
+    ```bash
+    cd ~/YOCTO/poky
+    bitbake-layers create-layer meta-ivi
+    cd ~/YOCTO/poky/build
+    bitbake-layers add-layer ../meta-ivi/
+    ```
+    
+    
     
   
 ### Post-Development_Stage
