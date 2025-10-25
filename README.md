@@ -67,7 +67,10 @@ I will follow this **architecture overview**
           - bblayers.conf → lists which layers are included
           - machine.conf → defines hardware (e.g., MACHINE = "raspberrypi4")
           - distro.conf → defines global policies (e.g., init system, package manager) 
+ - **Package recipe** life cycle
 
+     <img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/22.PackageRecipeBuildFlowBuildSystem.png">
+     
 ## Developmnent_Phases
 <p>Development is divided into phases to facilitate Development process</p>
 
@@ -369,7 +372,161 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/19.AudioFeatures.png">
 
     I will use the same Linux version, and by default **systemv** used
-    
+  - Inside **meta-ivi** layer will add different types of recipes to create my own **Image recipe**
+    1. Add a Native Cpp application
+       
+       ```bash
+       cd ~/YOCTO/poky/meta-ivi
+       mkdir recipes-native-cpp
+       cd recipes-native-cpp/
+       mkdir helloworldd
+       ```
+
+       I will use **recipetool** to get code from upstream
+
+       ```bash
+       cd ~/YOCTO/poky/meta-ivi/recipes-native-cpp/helloworldd
+       recipetool create -o worldhello_1.1.bb https://github.com/embeddedlinuxworkshop/y_t1.git
+       ```
+       What is the  final folder structure for the new package recipe?
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/20.NativePackageTree.png">     
+      
+       So, why was this recipe created with this structure **meta-ivi/recipes-native-cpp/helloworldd** 
+        
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/21.BitbakeSearchForRecipe.png">
+
+       Final content to the recipe to build it without problems
+
+       ```bash
+       # Recipe created by recipetool
+       # This is the basis of a recipe and may need further editing in order to be fully functional.
+       # (Feel free to remove these comments when editing.)
+       
+       # TODO 1. Documentation varaibles 
+       SUMMARY = "Hello World example in C++"
+       DESCRIPTION = "A simple C++ Hello World example"
+       #use it if the
+       # HOMEPAGE = "https://github.com/embeddedlinuxworkshop/y_t1" 
+        
+        
+       # Unable to find any files that looked like license statements. Check the accompanying
+       # documentation and source headers and set LICENSE and LIC_FILES_CHKSUM accordingly.
+       #
+       # NOTE: LICENSE is being set to "CLOSED" to allow you to at least start building - if
+       # this is not accurate with respect to the licensing of the software being built (it
+       # will not be in most cases) you must specify the correct value before using this
+       # recipe for anything other than initial testing/development!
+       #
+       # TODO 2 License Varaibles . 
+       LICENSE = "CLOSED"
+       LIC_FILES_CHKSUM = ""
+        
+        
+       # TODO 3. Source code varaibles  
+       SRC_URI = "git://github.com/embeddedlinuxworkshop/y_t1.git;protocol=https;branch=master"
+        
+       # Modify these as desired
+       PV = "1.1+git${SRCPV}"
+       SRCREV = "49600e3cd69332f0e7b8103918446302457cd950"
+        
+       S = "${WORKDIR}/git"
+        
+       # TODo 4. Tasks to be executed 
+        
+       # NOTE: no Makefile found, unable to determine what needs to be done
+        
+       do_configure () {
+       	# Specify any needed configure commands here
+       	:
+       }
+        
+       do_compile () {
+       	# Specify compilation commands here
+       	$CXX ${S}/main.cpp -o worldhello
+       }
+        
+        
+        
+       do_install () {
+        #  manp ---> ${WOPRKDIR}/image
+        # specify install commands here
+        # 1. create directory ${WOPRKDIR}/image/usr/bin
+        install -d ${D}/${bindir}
+        # 2. install worldhello binary to ${WOPRKDIR}/image/usr/bin
+        install -m 0755 worldhello ${D}/${bindir}
+       }
+       # ignore do_package
+       do_package_qa[noexec] = "1"
+       ```
+       Run the following command to build
+
+       ```bash
+       bitbake worldhelllo
+       ```
+    2. Create my own **Recipe Image**
+       An image recipe (*.bb) defines **the final root filesystem (image)** that Yocto will build — that is, the actual system that runs on your target(Raspberry Pi 4).Unlike a **package recipe** (which builds a single app or library), an **image recipe** tells **Yocto**:“What packages should be installed into the final image, and how should it be built and formatted (ext4, wic, sdcard, etc.).”
+       
+       To create your own **image recipe** there is Base should start from it. Will use **rpi-test-image** as base
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/23.ImageRecipeCall.png"> 
+
+       There is standard structure for **Image**. currently I will create this structure
+
+       ```bash
+       cd ~/YOCTO/poky/meta-ivi
+       mkdir recipes-core
+       cd recipes-core/
+       mkdir images
+       cd images/
+       touch ivi-test-image.bb
+       ```
+       content of **ivi-test-image.bb**  will include (native cpp application)
+       **IMAGE_INSTALL** is a variable used in **image recipes** (*.bb) to tell Yocto which packages should be included inside the **final root filesystem image** that will run on your device
+       
+       ```bash
+       # 1. include base image 
+       require recipes-core/images/rpi-test-image.bb
+      
+       # 2. set of local varaibles
+      
+       SUMMARY = "A simple IVI test image that include rpi function + helloworld package recipe"
+      
+       # 3. IMAGE_INSTALL 
+       IMAGE_INSTALL:append = " worldhello"
+       ```
+       Confirm that everything work right
+
+       ```bash
+       bitbake ivi-test-image
+       ```
+    3. Integrate SSH and be able to access root through SSH using empty password
+       There are two variables. I think there is need to provide clear define for them
+       
+       `IMAGE_FEATURES` - is a variable used to define a set of high-level features or attributes that an image should possess. These features, when specified, instruct the Yocto build system to automatically include the necessary packages, configurations, or modifications to achieve the desired functionality in the final image.
+       `IMAGE_INSTALL` - is a variable used in **image recipes** (*.bb) to tell Yocto which packages should be included inside the **final root filesystem image** that will run on your device
+
+       so to do this will update **ivi-test-image** content
+
+       ```bash
+       # 1. include base image 
+       require recipes-core/images/rpi-test-image.bb
+       
+       # 2. set of local varaibles
+      
+       SUMMARY = "A simple IVI test image that include rpi function + helloworld package recipe"
+
+       # 3. IMAGE_INSTALL 
+       IMAGE_INSTALL:append = " worldhello openssh"
+      
+       # 4. IMAGE_FEATURES
+       # 1. install ssh
+       # 2. allow root access through ssh
+       # 3. access root through ssh using empty password
+       IMAGE_FEATURES:append = " debug-tweaks"
+       ```
+        
+       
   
 ### Post-Development_Stage
 
