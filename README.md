@@ -198,6 +198,24 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     bitbake-layers add-layer ../meta-ivi/
     ```
     
+  - Create Distro Layer
+    to define the type of init system. What are init systems?
+    When Linux boots, the **init system** is the **first process** started by the kernel **(PID 1)**.
+    Its job is to:
+    1. Initialize the system
+    2. Start essential background services (daemons)
+    3. Manage processes
+    4. Handle shutdown and reboot
+    so I will create two Distro layers  **meta-info-distro** that will use **systemd** and **meta-audio-distro** that will use **systemv**
+
+    ```bash
+    cd ~/YOCTO/poky
+    bitbake-layers create-layer meta-info-distro
+    bitbake-layers create-layer meta-audio-distro
+    cd ~/YOCTO/poky/build
+    bitbake-layers add-layer ../meta-info-distro/
+    bitbake-layers add-layer ../meta-audio-distro/
+    ```
     
     
   
