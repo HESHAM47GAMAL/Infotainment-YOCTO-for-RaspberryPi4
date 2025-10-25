@@ -165,7 +165,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/11.ErrorIntegrateqt5.png">
 
-    explain this error how introduced
+    explain how this error introduced
 
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/12.qtResolveDependencies.png">
 
@@ -206,7 +206,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     2. Start essential background services (daemons)
     3. Manage processes
     4. Handle shutdown and reboot
-    so I will create two Distro layers  **meta-info-distro** that will use **systemd** and **meta-audio-distro** that will use **systemv**
+    So I will create two Distro layers  **meta-info-distro** that will use **systemd** and **meta-audio-distro** that will use **systemv**
 
     ```bash
     cd ~/YOCTO/poky
@@ -221,7 +221,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/14.Meta-Poky_folderStructure.png">
 
-    so fucos in this image to this folder distro and need to have same to new two distro layer
+    So fucos in this image to this folder distro and need to have same to new two distro layer
     
     ```bash
     meta-poky/
@@ -299,7 +299,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     VIRTUAL-RUNTIME_init_manager="systemd"
     VIRTUAL-RUNTIME_initscripts="systemd-compat-units"
     ```
-    This Distro will have following
+    This Distro will have the following Features
 
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/16.infoDistroFeature.png">
 
@@ -307,12 +307,68 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/17.LinuxVersion">
 
-    Here, include  part responsible for define init process system
+    Here, include part responsible for define init process system
 
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/18.DefiningSystemD.png">
     
+    Let's prepare **audio distro**
     
-      
+    ```bash
+    cd ~/YOCTO/poky/meta-audio-distro/conf
+    mkdir distro
+    cd distro/
+    touch audio.conf
+    ```  
+    content of **audio.conf**
+
+    ```bash
+    DISTRO="audio"
+    DISTRO_NAME="Bullet-audio"
+    DISTRO_VERSION="1.0"
+    
+    MAINTAINER="heshamgamal.a.h@gmail.com"
+    
+    
+    # SDK Information.
+    SDK_VENDOR = "-bulletSDK"
+    SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
+    SDK_VERSION[vardepvalue] = "${SDK_VERSION}"
+    
+    SDK_NAME = "${DISTRO}-${TCLIBC}-${SDKMACHINE}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
+    # Installation path --> can be changed to ${HOME}-${DISTRO}-${SDK_VERSION}
+    SDKPATHINSTALL = "/opt/${DISTRO}/${SDK_VERSION}" 
+    
+    # Disribution Feature --> NOTE: used to add customize package (for package usage).
+    
+    # infotainment --> INFOTAINMENT
+    
+    AUDIO_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch vulkan bluez5 bluetooth wifi audio_only"
+    AUDIO_DEFAULT_EXTRA_RDEPENDS = "packagegroup-core-boot"
+    AUDIO_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
+    
+    # TODO: to be org.
+    
+    DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${AUDIO_DEFAULT_DISTRO_FEATURES} userland"
+    
+    
+    # prefered version for packages.
+    PREFERRED_VERSION_linux-yocto ?= "5.15%"
+    PREFERRED_VERSION_linux-yocto-rt ?= "5.15%"
+    
+    
+    # Build System configuration.
+    
+    LOCALCONF_VERSION="2"
+    
+    # add poky sanity bbclass
+    INHERIT += "poky-sanity"
+    ```
+    
+    This Distro will have the following Features
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/19.AudioFeatures.png">
+
+    I will use the same Linux version, and by default **systemv** used
     
   
 ### Post-Development_Stage
