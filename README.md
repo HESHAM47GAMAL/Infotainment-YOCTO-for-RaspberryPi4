@@ -22,7 +22,7 @@ It includes the following key packages and configurations:
 
 <img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/1.Infotainment_System.png">
 
-this project is built using **kernel version 5.15.x** and uses systemd as the init system<br>
+this project is built using **kernel version 5.15.x** and uses **systemd** as the **init system**<br>
 I will follow this **architecture overview**
 
 <img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/2.architecture%20overview.png">
@@ -150,6 +150,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     bitbake rpi-test-image
     ```
   - Integrate **SW layer** (Qt-5) [Go to](https://layers.openembedded.org/layerindex/branch/master/layers/)
+    
     search for **meta-qt5** and choose it
 
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/9.Meta_qt5.png">
@@ -191,7 +192,8 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     bitbake-layers add-layer meta-openembedded/meta-oe
     bitbake-layers add-layer ../meta-qt5/
     ```
-  - Create SW Layer
+  - Create **SW Layer**
+    
     This layer will be used to integrate all layers. Follow the next command lines to create a  layer and add it to **bblayers.conf**
 
     ```bash
@@ -201,7 +203,8 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     bitbake-layers add-layer ../meta-ivi/
     ```
     
-  - Create Distro Layer
+  - Create **Distro Layer**
+    
     to define the type of init system. What are init systems?
     When Linux boots, the **init system** is the **first process** started by the kernel **(PID 1)**.
     Its job is to:
