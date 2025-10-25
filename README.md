@@ -216,7 +216,103 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     bitbake-layers add-layer ../meta-info-distro/
     bitbake-layers add-layer ../meta-audio-distro/
     ```
+    As we know, **Layer** is a directory, and to make it a **Distro layer**, you need to have a specific folder structure
+    so will take Poky layer structure as an example
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/14.Meta-Poky_folderStructure.png">
+
+    so fucos in this image to this folder distro and need to have same to new two distro layer
     
+    ```bash
+    meta-poky/
+    ├──conf
+    | ├── distro/
+    | |└── include/
+    | |└──layer.conf
+    ```
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/15.IsLayerDistro.png">
+
+    Let's prepare **info distro**
+
+    ```bash
+    cd ~/YOCTO/poky/meta-info-distro/conf
+    mkdir distro
+    cd distro/
+    mkdir include
+    touch infotainment.conf
+    cd include/
+    touch systemd.inc
+    ```
+    content of **infotainment.conf**
+    
+    ```bash
+    DISTRO="infotainment"
+    DISTRO_NAME="Bullet-Infotainment"
+    DISTRO_VERSION="1.0"
+    
+    MAINTAINER="heshamgamal.a.h@gmail.com"
+    
+    
+    # SDK Information.
+    SDK_VENDOR = "-bulletSDK"
+    SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
+    SDK_VERSION[vardepvalue] = "${SDK_VERSION}"
+    
+    SDK_NAME = "${DISTRO}-${TCLIBC}-${SDKMACHINE}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
+    # Installation path --> can be changed to ${HOME}-${DISTRO}-${SDK_VERSION}
+    SDKPATHINSTALL = "/opt/${DISTRO}/${SDK_VERSION}" 
+    
+    # Disribution Feature --> NOTE: used to add customize package (for package usage).
+    
+    # infotainment --> INFOTAINMENT
+    
+    INFOTAINMENT_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch vulkan x11 bluez5 bluetooth wifi qt5"
+    INFOTAINMENT_DEFAULT_EXTRA_RDEPENDS = "packagegroup-core-boot"
+    INFOTAINMENT_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
+    
+    # TODO: to be org.
+    
+    DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${INFOTAINMENT_DEFAULT_DISTRO_FEATURES} userland"
+    
+    #add systemd as init-process
+    require conf/distro/include/systemd.inc
+    
+    # prefered version for packages.
+    PREFERRED_VERSION_linux-yocto ?= "5.15%"
+    PREFERRED_VERSION_linux-yocto-rt ?= "5.15%"
+    
+    
+    # Build System configuration.
+    
+    LOCALCONF_VERSION="2"
+    
+    # add poky sanity bbclass
+    INHERIT += "poky-sanity"
+    ```
+    content of **systemd.inc**
+
+    ```bash
+    #install systemd as default init system manager
+    DISTRO_FEATURES:append=" systemd" 
+    # select systemd as init manager 
+    VIRTUAL-RUNTIME_init_manager="systemd"
+    VIRTUAL-RUNTIME_initscripts="systemd-compat-units"
+    ```
+    This Distro will have following
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/16.infoDistroFeature.png">
+
+    Here, define the Linux version
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/17.LinuxVersion">
+
+    Here, include  part responsible for define init process system
+
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/18.DefiningSystemD.png">
+    
+    
+      
     
   
 ### Post-Development_Stage
