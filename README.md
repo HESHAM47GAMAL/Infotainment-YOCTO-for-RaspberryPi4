@@ -111,6 +111,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
   Here, I will integrate and create all recipes needed to create an image<br>
   
   - Integrate **BSP layer** for Raspberry Pi 4 [Go to](https://layers.openembedded.org/layerindex/branch/master/layers/)
+
     search for **meta-raspberrypi** and choose it
       
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/5.raspberryPi_layer.png">
@@ -152,7 +153,6 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     ```
   - Integrate **SW layer** (Qt-5) [Go to](https://layers.openembedded.org/layerindex/branch/master/layers/)
     
-
     search for **meta-qt5** and choose it
 
     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/9.Meta_qt5.png">
