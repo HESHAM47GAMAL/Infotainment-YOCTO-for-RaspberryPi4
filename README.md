@@ -98,7 +98,8 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
   ```
   So, poky path is **~/YOCTO/poky**
   
-- Understand Poky
+- Understand **Poky**
+
   **Poky** is the **reference** distribution of the Yocto Project — it’s not a Linux distribution itself, but rather a build system (based on BitBake) and a set of metadata that allow you to build your own custom Linux distribution.
   - `Bitbake` — The build engine — parses recipes, resolves dependencies, and executes build tasks.
   - `Metadata` - Describe what to build and how to build it. This includes recipes (.bb), classes (.bbclass), and configuration files (.conf).
