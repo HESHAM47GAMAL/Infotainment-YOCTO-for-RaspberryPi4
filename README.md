@@ -472,9 +472,9 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     2. Create my own **Recipe Image**
        An image recipe (*.bb) defines **the final root filesystem (image)** that Yocto will build — that is, the actual system that runs on your target(Raspberry Pi 4).Unlike a **package recipe** (which builds a single app or library), an **image recipe** tells **Yocto**:“What packages should be installed into the final image, and how should it be built and formatted (ext4, wic, sdcard, etc.).”
        
-       To create your own **image recipe** there is Base should start from it. Will use **rpi-test-image** as base
+       To create your own **image recipe** there is Base should start from it. Will use **core-image-sato** as base
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/23.ImageRecipeCall.png"> 
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/23.FinalImageRecipeCall.png"> 
 
        There is standard structure for **Image**. currently I will create this structure
 
@@ -491,7 +491,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        
        ```bash
        # 1. include base image 
-       require recipes-core/images/rpi-test-image.bb
+       require recipes-sato/images/core-image-sato.bb
       
        # 2. set of local varaibles
       
@@ -505,7 +505,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        ```bash
        bitbake ivi-test-image
        ```
-    3. Integrate SSH and be able to access root through SSH using empty password
+    3. Integrate **SSH** and be able to access root through SSH using empty password
        There are two variables. I think there is need to provide clear define for them
        
        `IMAGE_FEATURES` - is a variable used to define a set of high-level features or attributes that an image should possess. These features, when specified, instruct the Yocto build system to automatically include the necessary packages, configurations, or modifications to achieve the desired functionality in the final image.
@@ -515,21 +515,23 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
        ```bash
        # 1. include base image 
-       require recipes-core/images/rpi-test-image.bb
+       require recipes-sato/images/core-image-sato.bb
        
        # 2. set of local varaibles
       
        SUMMARY = "A simple IVI test image that include rpi function + helloworld package recipe"
 
        # 3. IMAGE_INSTALL 
-       IMAGE_INSTALL:append = " worldhello openssh"
+       IMAGE_INSTALL:append = " worldhello openssh dhcpcd net-tools"
       
        # 4. IMAGE_FEATURES
        # 1. install ssh
        # 2. allow root access through ssh
        # 3. access root through ssh using empty password
-       IMAGE_FEATURES:append = " debug-tweaks"
+       IMAGE_FEATURES:append = " debug-tweaks ssh-server-openssh"
        ```
+
+    4. Integrate **Nano Editor** to be able to open any file and edit on the target machine     
         
        
   
