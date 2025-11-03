@@ -531,8 +531,135 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        IMAGE_FEATURES:append = " debug-tweaks ssh-server-openssh"
        ```
 
-    4. Integrate **Nano Editor** to be able to open any file and edit on the target machine     
-        
+    4. Integrate **Nano Editor** to be able to open any file and edit on the target machine
+       
+       will move to [Link](https://www.nano-editor.org/git.php)
+
+       Press in link to **Instruction link**
+       
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/24.Nano_Site.png">
+
+       will find that Nano has **prerequisites**
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/25.NanoPrerequisities.png">
+
+       And there is dependency I need to resolve to compile without problems
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/26.NanoCompileDependency.png">
+
+       To create **package recipe** will use **recipetool**
+
+       ```bash
+       cd ~/YOCTO/poky/meta-ivi
+       mkdir recipes-editor
+       cd recipes-editor
+       mkdir nano
+       cd nano
+       recipetool create -o nano_1.0.bb https://git.savannah.gnu.org/git/nano.git
+       ```
+       this final content to **nano_1.0.bb**
+
+       ```bash
+       # Recipe created by recipetool
+       # This is the basis of a recipe and may need further editing in order to be fully functional.
+       # (Feel free to remove these comments when editing.)
+      
+       # WARNING: the following LICENSE and LIC_FILES_CHKSUM values are best guesses - it is
+       # your responsibility to verify that the values are complete and correct.
+       #
+       # The following license files were not able to be identified and are
+       # represented as "Unknown" below, you will need to check them yourself:
+       #   COPYING.DOC
+       #
+       # NOTE: multiple licenses have been detected; they have been separated with &
+       # in the LICENSE value for now since it is a reasonable assumption that all
+       # of the licenses apply. If instead there is a choice between the multiple
+       # licenses then you should change the value to separate the licenses with |
+       # instead of &. If there is any doubt, check the accompanying documentation
+       # to determine which situation is applicable.
+       LICENSE = "GPL-3.0-only & Unknown"
+       LIC_FILES_CHKSUM = "file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949 \
+                          file://COPYING.DOC;md5=ad1419ecc56e060eccf8184a87c4285f"
+      
+       SRC_URI = "git://git.savannah.gnu.org/git/nano.git/;protocol=https;branch=master"
+      
+       # Modify these as desired
+       PV = "1.0+git${SRCPV}"
+       SRCREV = "50e186bc8162009c9efeb562d29f9aae70406eb4"
+       
+       S = "${WORKDIR}/git"
+      
+       # NOTE: the following library dependencies are unknown, ignoring: curses
+       #       (this is based on recipes that have previously been built and packaged)
+       DEPENDS = "file zlib ncurses"
+      
+       # NOTE: if this software is not capable of being built in a separate build directory
+       # from the source, you should replace autotools with autotools-brokensep in the
+       # inherit line
+       inherit pkgconfig gettext autotools
+      
+       # Specify any options you want to pass to the configure script using EXTRA_OECONF:
+       EXTRA_OECONF = ""
+      
+       AUTOTOOLS_AUTORECONF = "yes"
+      
+       do_configure(){
+           oe_runconf
+       }
+       ```
+       
+       Look how **recipetool** is able to resolve dependency
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/27.RecipetoolResolve.png">
+
+       To confirm that **package recipe** can build without any problem
+
+       ```bash
+       bitbake nano
+       ```
+
+       I hope that it is done without any problem, but you will almost face those problems
+       First problem is **falling fetch process**
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/28.fetchingNanoSource.png">
+
+       I overcome this problem by make cloning manually
+
+       ```bash
+       cd ~/YOCTO/poky/build/downloads/git2
+       mkdir git.savannah.gnu.org.git.nano.git.
+       git clone https://git.savannah.gnu.org/git/nano.git nano
+       ```
+       After this step, when making bitbake for **package recipe** again, you may face problem
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/29.ConfigTaskNano.png">
+
+       I will move to the path that is expected to find **configuration folder**
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/30.checkConfigFolder.png">
+
+       To generate a configuration script (in the same path you get, like the previous image, run this command)
+
+       ```bash
+       ./autogen.sh
+       ```
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/31.ConfigFolderCreated.png">
+
+       After those steps, when run this command expected to work smoothly without problems
+
+       ```bash
+       bitbkae nano
+       ```
+
+    5. Integrate **rpi** to be able to make screen mirroring from MAC devices 
+
+       
+
+       
+
+       
+       
        
   
 ### Post-Development_Stage
