@@ -768,7 +768,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        # 2. allow root access through ssh
        # 3. access root through ssh using empty password
        IMAGE_FEATURES:append = " debug-tweaks ssh-server-openssh"
-      ```
+       ```
        
        
        
