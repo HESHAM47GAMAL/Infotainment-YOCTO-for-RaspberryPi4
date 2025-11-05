@@ -1,4 +1,4 @@
-# Infotainment-YOCTO-for-RaspberryPi4
+<img width="802" height="132" alt="image" src="https://github.com/user-attachments/assets/2fe1d37b-034d-44fb-bc65-b508cdcdf6bb" /># Infotainment-YOCTO-for-RaspberryPi4
 ## 📑 Table of Contents
 - ⚡[Project_Overview](#Project_Overview)
 - [🧠YOCTO_System_Requirements](#YOCTO_System_Requirements)
@@ -780,4 +780,105 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        
 ### Post-Development_Stage
 
+  1. To be able to create Raspberry Pi image and flash it on SD card need to have this script
+
+     ```bash
+     cd ~/YOCTO/
+     mkdir custom_scripts
+     cd custom_scripts
+     touch flashing.sh
+     ```
+
+     content of **flashing.sh**
+
+     ```bash
+     #!/usr/bin/bash
+
+     function sdcard-flashing(){
+    
+     if [[ "$1" == "--help" ]]; then
+         printf "%s\n%s\n" "1st parameter: /dev/<driver>" "2nd parameter: <image iso>"
+         return 0
+     fi
+    
+
+     if (( $# < 2 )); then
+         echo "Invalid arguments passed use --help for valid options."
+         return 1
+     fi
+
+     declare DRIVER=$1
+     declare IMAGE_PATH=$2
+     
+     sudo dd if="${IMAGE_PATH}" of="${DRIVER}" status=progress
+
+     return 0
+     }
+
+
+     function create-rpi-image(){
+
+     if [[ "$1" == "--help" ]]; then
+         printf "%s\n%s" "1st parameter: image-name" "RUN: wic list images"
+         return 0
+     fi
+    
+
+     if (( $# < 1 )); then
+         echo "Invalid arguments passed use --help for valid options."
+         return 1
+     fi
+
+     declare IMAGE_NAME=$1
+    
+     wic create  sdimage-raspberrypi -e ${IMAGE_NAME}
+
+     return 0
+     }
+     ```
+
+     need to source this script to be loaded when any terminal open
+
+     ```bash
+     nano ~/.bashrc
+     # at the end of file, add those lines
+     if [ -f "${HOME}/Hazem_Course/YOCTO/custom_scripts/flashing.sh" ]; then 
+	   source "${HOME}/Hazem_Course/YOCTO/custom_scripts/flashing.sh"
+     fi
+     ```
+  2. Let's create image
+
+     to do this will create folder as any time will create image should exist in this path and run command
+
+     ```bash
+     cd cd ~/YOCTO/poky
+     mkdir rasp-images
+     cd rasp-images
+     create-rpi-image ivi-test-image
+     ```
+     will get log like this and inform you image created
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/36.imageCreated.png">
+    
+  3. Load SD card with image
+
+     To avoid any problem, please confirm that SD card formatted (writing zero values)
+
+     Plug SD card into laptop
+
+     run this command to know user SD card name to write image for it (in my case SD card read as **sdb**)
+
+     ```bash
+     lsblk
+     ```
+     then write image to your sd card
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/37.flashSD.png">
+    
+  5.  
+  6. 
+  
+  
+
+      
 ## 💾Flashing_to_SD_Card
