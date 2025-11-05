@@ -769,18 +769,15 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        # 3. access root through ssh using empty password
        IMAGE_FEATURES:append = " debug-tweaks ssh-server-openssh"
        ```
-       
-       
-       
-      
-       
+       I will **systemd** as init process, so I will update **DISTRO** variable in **local.conf**
 
+       ```bash
+       cd ~/YOCTO/poky/build/conf
+       vi local.conf
+       #change DISTRO variable to be infotainment
+       DISTRO ?= "infotainment"
+       ```
        
-
-       
-       
-       
-  
 ### Post-Development_Stage
 
 ## 💾Flashing_to_SD_Card
