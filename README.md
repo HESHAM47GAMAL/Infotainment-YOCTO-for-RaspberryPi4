@@ -702,8 +702,34 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        # Specify any options you want to pass to cmake using EXTRA_OECMAKE:
        EXTRA_OECMAKE = ""
        ```
+       will find that the recipetool makes partially resolving to dependencies **DEPENDS = "openssl"** but when going to repo link, will find a lot of dependencies need to resolved
 
-   
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/32.rpi_depencies.png">
+
+       First, I will confirm that these dependencies exist in any layer I have
+       Check if I have **avahi** and can also confirm if you have it by run
+
+       ```bash
+       cd ~/YOCTO/poky/
+       find . -name "avahi"
+       ```
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/33.avahiRecipe.png">
+
+       Check if I have **plist**
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/34.plistDependencies.png">
+
+       After confirming that I have all of those packages in any layer, I can add them to **dependencies** without problems
+
+       So update this variable in **rpi-play.bb** to be
+
+       ```bash
+       DEPENDS = "avahi libplist openssl"
+       ```
+       
+       
+       
       
        
 
