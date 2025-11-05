@@ -727,6 +727,48 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        ```bash
        DEPENDS = "avahi libplist openssl"
        ```
+
+    6. Integrate **Audio** to be able to play sound
+
+       will use ALSA tool that has this Architecture
+
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/35.SoundLayers.png">
+
+       will create **class recipe** to install recipes needed to support audio
+
+       ```bash
+       cd ~/YOCTO/poky/meta-ivi
+       mkdir classes
+       cd classes/
+       touch audio.bbclass
+       ```
+       Content of **audio.bbclass**
+
+       ```bash
+       IMAGE_INSTALL:append = " packagegroup-rpi-test pavucontrol pulseaudio  pulseaudio-module-dbus-protocol pulseaudio-server pulseaudio-module-loopback pulseaudio-module-bluetooth-discover alsa-ucm-conf pulseaudio-module-bluetooth-policy alsa-topology-conf alsa-state alsa-lib alsa-tools pulseaudio-module-bluez5-discover libsocketcan\
+       pulseaudio-module-bluez5-device alsa-utils alsa-plugins rpi-play can-utils net-tools gstreamer1.0 iproute2 iputils qtbase-examples qtquickcontrols qtbase-plugins qtquickcontrols2 qtgraphicaleffects qtmultimedia qtserialbus qtquicktimeline qtvirtualkeyboard bluez5 bluez5-noinst-tools i2c-tools hostapd iptables packagegroup-tools-bluetooth gstreamer1.0-plugins-base gstreamer1.0-plugins-good "
+       ```
+       To include those packages in final image, I need to update **ivi-test-image.bb** that is **image recipe**
+
+       ```bash
+       # 1. include base image
+       require recipes-sato/images/core-image-sato.bb
+       
+       # 2. set of local varaibles
+
+       SUMMARY = "A simple IVI test image that include rpi function + helloworld package recipe"
+
+       inherit audio
+
+       # 3. IMAGE_INSTALL 
+       IMAGE_INSTALL:append = " worldhello openssh rpi-play nano dhcpcd net-tools"
+
+       # 4. IMAGE_FEATURES
+       # 1. install ssh
+       # 2. allow root access through ssh
+       # 3. access root through ssh using empty password
+       IMAGE_FEATURES:append = " debug-tweaks ssh-server-openssh"
+      ```
        
        
        
