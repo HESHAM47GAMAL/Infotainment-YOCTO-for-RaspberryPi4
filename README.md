@@ -1,4 +1,4 @@
-<img width="802" height="132" alt="image" src="https://github.com/user-attachments/assets/2fe1d37b-034d-44fb-bc65-b508cdcdf6bb" /># Infotainment-YOCTO-for-RaspberryPi4
+# Infotainment-YOCTO-for-RaspberryPi4
 ## 📑 Table of Contents
 - ⚡[Project_Overview](#Project_Overview)
 - [🧠YOCTO_System_Requirements](#YOCTO_System_Requirements)
@@ -863,7 +863,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
   3. Load SD card with image
 
      To avoid any problem, please confirm that SD card formatted (writing zero values)
-
+     
      Plug SD card into laptop
 
      run this command to know user SD card name to write image for it (in my case SD card read as **sdb**)
@@ -871,13 +871,10 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
      ```bash
      lsblk
      ```
-     then write image to your sd card
+     Then write image to your sd card
 
      <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/37.flashSD.png">
     
-  5.  
-  6. 
-  
   
 
       
