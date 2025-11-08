@@ -7,7 +7,7 @@
   - [Pre-Development_Stage](#Pre-Development_Stage)
   - [Development_Stage](#Development_Stage)
   - [Post-Development_Stage](#Post-Development_Stage)
-- [💾Flashing_to_SD_Card](#Flashing_to_SD_Card)
+
 
 ## ⚡ Project_Overview
 This system image was **built using the Yocto Project (Kirkstone branch)** for the **Raspberry Pi 4 (64-bit)** target.  
@@ -978,7 +978,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
      <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/36.imageCreated.png">
     
-  3. Load SD card with image
+  3. 📥Load SD card with image
 
      To avoid any problem, please confirm that SD card formatted (writing zero values)
      
@@ -992,7 +992,83 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
      Then write image to your sd card
 
      <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/37.flashSD.png">
-    
 
-      
-## 💾Flashing_to_SD_Card
+	 then unplug SD card and insert it into Raspberry pi
+
+  4. make SSH for your target machine
+
+     Confirm that your raspberry pi Ethernet pluged (your laptop and raspberry pi should conencted with wired ethernet in same network)<br>
+	 I need to see network configuration
+
+     ```bash
+     ifconfig
+     ```
+
+	 will see something like this
+
+	 <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/40.ifconfig.png">	
+		
+	 As, I infrom we use wired so will focus with **enp7s0** as I have IP = 192.168.1.8
+
+ 	 so will try to see IP that has same subnet **192.168.1.0/24**
+
+	 ```bash
+     nmap -sn 192.168.1.0/24
+     ```
+
+     and will get something like this 
+
+	 <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/41.HostIP.png">
+
+	 will try to **SSH** to your target machine (will try IP you get)
+
+ 	 ```bash
+     ssh root@192.168.1.3
+     ```
+     until get something like
+
+	 <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/42.SSH.png">
+
+	 **🚩🚩👀👀Note at this point Screen may not work right**
+
+  6. 🖥️Make Screen run without any problem
+
+	 to make screen work without problems as I use **7 inch LCD Display-C**
+
+	 will SSH your board again then do
+
+	 ```bash
+     cd nano /boot/config.txt
+     ## add those lines
+  	 # Enable VC4 Graphics (FKMS, stable with non-standard screens)
+	 dtoverlay=vc4-fkms-v3d
+
+	 # USB / HDMI tweaks
+	 max_usb_current=1
+	 config_hdmi_boost=7
+	 hdmi_force_hotplug=1
+	 
+	 # Custom resolution for 7" LCD
+	 hdmi_group=2
+	 hdmi_mode=87
+	 hdmi_cvt=1024 600 60 6 0 0 0
+	 hdmi_drive=1
+	
+	 # Display tweaks
+	 display_rotate=0
+	 disable_overscan=0
+	 max_framebuffers=2
+ 	 ```
+     	 
+     press **Ctrl + o** then **Enter** then **Ctrl + x**
+
+	 then make board reboot
+
+	 ```bash
+     reboot
+     ```
+
+	 after reboot will get screen view
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/43.Screnview.jpeg">
+
