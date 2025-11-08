@@ -865,6 +865,36 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 	   Explain some points in **pcakge Recipe**
 
 	   <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/39.explainScrcpyRecipe.png">	
+
+    🙌🙌Finally, to create a **Linux Image Distribution**
+
+    update **ivi-test-image.bb** 
+
+    ```bash
+    # 1. include base image --->
+    # 1. Poky
+    # 2. BSP 
+    require recipes-sato/images/core-image-sato.bb
+
+    # 2. set of local varaibles
+
+    SUMMARY = "A simple IVI test image that include rpi function + helloworld package recipe"
+
+    inherit audio
+
+    # 3. IMAGE_INSTALL 
+    IMAGE_INSTALL:append = " worldhello openssh rpi-play nano scrcpy android-tools dhcpcd net-tools"
+
+    # 4. IMAGE_FEATURES
+    # 1. install ssh
+    # 2. allow root access through ssh
+    # 3. access root through ssh using empty password
+    IMAGE_FEATURES:append = " debug-tweaks ssh-server-openssh"
+    ```
+
+    ```bash
+    bitbake ivi-test-image
+    ```
 	   
 ### Post-Development_Stage
 
@@ -963,7 +993,6 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
      <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/37.flashSD.png">
     
-  
 
       
 ## 💾Flashing_to_SD_Card
