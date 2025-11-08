@@ -777,7 +777,35 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        #change DISTRO variable to be infotainment
        DISTRO ?= "infotainment"
        ```
+	7. Integrate **scrcpy** to enable screen mirroring for Android
+
+	   can reach repo [Link](https://github.com/Genymobile/scrcpy/tree/master)
+	   Let's prepare **package recipe**
+
+	   ```bash
+       cd cd ~/YOCTO/poky/meta-ivi/recipes-info
+       mkdir scrcpy
+       cd scrcpy
+       recipetool create -o scrcpy_1.0.bb https://github.com/Genymobile/scrcpy
+       ```
+       In this repo, there are build instructions [Link](https://github.com/Genymobile/scrcpy/blob/master/doc/build.md)
        
+	   From this repo understand that **Scrcpy** uses **a client–server architecture**.
+     
+       Let's break down this **Architecture**<br>
+     	- **Server (on Android phone)**<br>
+      		A small Java .jar file called scrcpy-server runs inside your Android device.<br>
+            It captures the screen and sends the encoded video stream (via ADB) back to the host (Raspberry Pi in your case).<br>
+       	    It also receives control inputs (keyboard, mouse) from the host.<br>
+	    - **Client (on Raspberry Pi)**<br>
+      		The compiled binary /usr/bin/scrcpy is the client application.<br>
+			It starts an ADB connection, pushes the server JAR to the phone, starts it there, and then opens a video window (via SDL2).<br>
+			It decodes the video stream using FFmpeg and shows the screen interactively.<br>
+	   Based on this Information, I need to get **scrcpy-server**. It exists in **build instruction Guidance**. as It need to be exist to complete build without any problem
+
+	   <img scr="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/38.Scrcpy-server.png">	
+	 	
+	   
 ### Post-Development_Stage
 
   1. To be able to create Raspberry Pi image and flash it on SD card need to have this script
