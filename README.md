@@ -1139,3 +1139,39 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 	       	card 1
 		   }	
      	   ```
+  8. ᛒ test Bluetooth and audio
+
+     In this point I will try to connect my phone to Raspberry Pi to through bluetooth and play audio from my phone and hear it from my headphone connected to Raspberry Pi
+
+     need to run this application, this will introduce **Pulseaudio process** run
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/49.runPulseAudio.png">
+	 
+	 ```bash
+     bluetoothctl
+     show
+   	 ```
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/47.BluetoothShow.png">
+
+	 need to make it discoverable and don't time out
+
+     ```bash
+     discoverable yes
+     discoverable-timeout 0
+     ```
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/48.LastBluetooth.png">
+
+	 In your phone turn on bluetooth and if connected before please make forget (unpair) to avoid any problem then connect your phone to bluetooth name **raspberrypi4-64** <br>
+	 in your target machine keep on **bluetoothctl** and will find logs indicate accepting **authorization**
+
+	 to confirm that connection established right and audio will move from phone to headphone of raspberry pi in your phone when increase/decrease volume should see sound icon like this
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/49.soundIcon.jpeg">
+
+	 so when play any sound from your phone and find that audio not hearable from headphone side need to do following
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/50.SetAudioHeadphone.png">
+
+     so, currently will be able to hear audio send from phone through Headphone connected though audio jack 3.5mm
