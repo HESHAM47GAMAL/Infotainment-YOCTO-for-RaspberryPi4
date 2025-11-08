@@ -783,7 +783,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 	   Let's prepare **package recipe**
 
 	   ```bash
-       cd cd ~/YOCTO/poky/meta-ivi/recipes-info
+       cd ~/YOCTO/poky/meta-ivi/recipes-info
        mkdir scrcpy
        cd scrcpy
        recipetool create -o scrcpy_1.0.bb https://github.com/Genymobile/scrcpy
@@ -801,10 +801,70 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
       		The compiled binary /usr/bin/scrcpy is the client application.<br>
 			It starts an ADB connection, pushes the server JAR to the phone, starts it there, and then opens a video window (via SDL2).<br>
 			It decodes the video stream using FFmpeg and shows the screen interactively.<br>
-	   Based on this Information, I need to get **scrcpy-server**. It exists in **build instruction Guidance**. as It need to be exist to complete build without any problem
+			
+	   Based on this Information, I need to get **scrcpy-server**. It exists in **build instruction Guidance**. as It need to be exist to complete build without any problem<br>
 
-	   <img scr="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/38.Scrcpy-server.png">	
-	 	
+	   <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/38.Scrcpy-server.png">
+
+	   ```bash
+       cd ~/YOCTO/poky/meta-ivi/recipes-info/scrcpy
+       mkdir files
+       cd files
+       wget https://github.com/Genymobile/scrcpy/releases/download/v3.3.3/scrcpy-server-v3.3.3 -O scrcpy-server.jar
+       #remove extension .jar
+       ```
+
+	   Content of **scrcpy_1.0.bb**
+
+       ```bash
+       SUMMARY = "Display and control Android devices"
+	   DESCRIPTION = "Scrcpy provides display and control of Android devices connected via USB or TCP/IP."
+	   HOMEPAGE = "https://github.com/Genymobile/scrcpy"
+	   LICENSE = "Apache-2.0"
+	   LIC_FILES_CHKSUM = "file://LICENSE;md5=798340522dc9eb3d3568e42ca2612bb0"
+	
+	   # Sources:
+	   # - main source from GitHub
+	   # - server JAR provided manually in 'files/' folder
+	   SRC_URI = "git://github.com/Genymobile/scrcpy.git;protocol=https;branch=master \
+		   file://scrcpy-server \
+		   "
+	
+	   PV = "3.3.3+git${SRCPV}"
+	   SRCREV = "e5e58b1b307d92cbe3432431a9e22cd648f8d4d1"
+	
+	   S = "${WORKDIR}/git"
+	
+	
+	   DEPENDS = "ffmpeg libsdl2 libusb libdrm meson-native ninja-native"
+	   RDEPENDS:${PN} += "android-tools"
+	
+	   inherit meson pkgconfig
+	
+	   # Disable building the server (we provide our own)
+	   # EXTRA_OEMESON += "-Dbuild_server=false"
+	
+	
+	   # --- FIX: patch meson.build to skip server ---
+	   do_configure:prepend() {
+		   # comment out any "subdir('server')" line to avoid missing build file errors
+		   sed -i '/subdir.*server/d' ${S}/meson.build
+	   }
+	
+	   do_install() {
+		   install -d ${D}${bindir}
+		   install -m 0755 ${B}/app/scrcpy ${D}${bindir}/scrcpy
+	
+		   install -d ${D}${datadir}/scrcpy
+		   install -m 0644 ${WORKDIR}/scrcpy-server ${D}${datadir}/scrcpy/scrcpy-server
+	   }
+	
+	   FILES:${PN} += "${datadir}/scrcpy"
+	   ```
+
+	   Explain some points in **pcakge Recipe**
+
+	   <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/39.explainScrcpyRecipe.png">	
 	   
 ### Post-Development_Stage
 
