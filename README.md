@@ -25,7 +25,7 @@ It includes the following key packages and configurations:
 this project is built using **kernel version 5.15.x** and uses **systemd** as the **init system**<br>
 I will follow this **architecture overview**
 
-<img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/2.architecture%20overview.png">
+<img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/2.architecture%20overview.png">
 
 ## 🧠YOCTO_System_Requirements
 - `Free Disk` — you need a system with at least 90 Gbytes of free disk space
@@ -69,7 +69,7 @@ I will follow this **architecture overview**
           - distro.conf → defines global policies (e.g., init system, package manager) 
  - **Package recipe** life cycle
 
-     <img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/22.PackageRecipeBuildFlowBuildSystem.png">
+     <img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/22.PackageRecipeBuildFlowBuildSystem.png">
      
 ## Developmnent_Phases
 <p>Development is divided into phases to facilitate Development process</p>
@@ -78,7 +78,7 @@ I will follow this **architecture overview**
 Here, prepare the host machine to be  ready to create an image using YOCTO
 
 - Download Yocto extension in VS Code
-  <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/3.YOCTO_extension.png">
+  <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/3.YOCTO_extension.png">
 
 - Install Yocto dependencies
   ```bash
@@ -105,7 +105,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
   - `Metadata` - Describe what to build and how to build it. This includes recipes (.bb), classes (.bbclass), and configuration files (.conf).
   - `OpenEmbedded` - The core layer that provides the essential Linux components and build metadata
   - `Metadata-poky` - Poky-specific configuration layer
-  <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/4.poky_structure.png">
+  <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/4.poky_structure.png">
 
 ### Development_Stage
   Here, I will integrate and create all recipes needed to create an image<br>
@@ -114,15 +114,15 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
     search for **meta-raspberrypi** and choose it
       
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/5.raspberryPi_layer.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/5.raspberryPi_layer.png">
 
     Here, look at the repo link
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/6.RaspberryRepoLink.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/6.RaspberryRepoLink.png">
     
     This is confirmation that this BSP will provide full functionality for my HW
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/7.Machines.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/7.Machines.png">
     
     ```bash
     cd ~/YOCTO/poky
@@ -132,7 +132,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     ```
     this is test image provided you can use it to test that HW work right
     
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/8.testImgae.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/8.testImgae.png">
     
     you need to change machine that will create image for 
     
@@ -155,11 +155,11 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     
     search for **meta-qt5** and choose it
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/9.Meta_qt5.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/9.Meta_qt5.png">
 
     Here, look at the repo link and Dependencies
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/10.QTRepoLink.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/10.QTRepoLink.png">
 
     ```bash
     cd ~/YOCTO/poky
@@ -169,11 +169,11 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     ```
     during run command **bitbake-layers add-layer ../meta-qt5/** will face this error
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/11.ErrorIntegrateqt5.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/11.ErrorIntegrateqt5.png">
 
     explain how this error introduced
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/12.qtResolveDependencies.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/12.qtResolveDependencies.png">
 
     So, will clone **openEmbedded-core**
 
@@ -227,7 +227,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     As we know, **Layer** is a directory, and to make it a **Distro layer**, you need to have a specific folder structure
     so will take Poky layer structure as an example
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/14.Meta-Poky_folderStructure.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/14.Meta-Poky_folderStructure.png">
 
     So fucos in this image to this folder distro and need to have same to new two distro layer
     
@@ -239,7 +239,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     | |└──layer.conf
     ```
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/15.IsLayerDistro.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/15.IsLayerDistro.png">
 
     Let's prepare **info distro**
 
@@ -309,15 +309,15 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     ```
     This Distro will have the following Features
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/16.infoDistroFeature.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/16.infoDistroFeature.png">
 
     Here, define the Linux version
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/17.LinuxVersion">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/17.LinuxVersion">
 
     Here, include part responsible for define init process system
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/18.DefiningSystemD.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/18.DefiningSystemD.png">
     
     Let's prepare **audio distro**
     
@@ -374,7 +374,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     
     This Distro will have the following Features
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/19.AudioFeatures.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/19.AudioFeatures.png">
 
     I will use the same Linux version, and by default **systemv** used
   - Inside **meta-ivi** layer will add different types of recipes to create my own **Image recipe**
@@ -395,11 +395,11 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        ```
        What is the  final folder structure for the new package recipe?
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/20.NativePackageTree.png">     
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/20.NativePackageTree.png">     
       
        So, why was this recipe created with this structure **meta-ivi/recipes-native-cpp/helloworldd** 
         
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/21.BitbakeSearchForRecipe.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/21.BitbakeSearchForRecipe.png">
 
        Final content to the recipe to build it without problems
 
@@ -474,7 +474,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        
        To create your own **image recipe** there is Base should start from it. Will use **core-image-sato** as base
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/23.FinalImageRecipeCall.png"> 
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/23.FinalImageRecipeCall.png"> 
 
        There is standard structure for **Image**. currently I will create this structure
 
@@ -537,15 +537,15 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
        Press in link to **Instruction link**
        
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/24.Nano_Site.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/24.Nano_Site.png">
 
        will find that Nano has **prerequisites**
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/25.NanoPrerequisities.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/25.NanoPrerequisities.png">
 
        And there is dependency I need to resolve to compile without problems
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/26.NanoCompileDependency.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/26.NanoCompileDependency.png">
 
        To create **package recipe** will use **recipetool**
 
@@ -610,7 +610,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        
        Look how **recipetool** is able to resolve dependency
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/27.RecipetoolResolve.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/27.RecipetoolResolve.png">
 
        To confirm that **package recipe** can build without any problem
 
@@ -621,7 +621,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        I hope that it is done without any problem, but you will almost face those problems
        First problem is **falling fetch process**
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/28.fetchingNanoSource.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/28.fetchingNanoSource.png">
 
        I overcome this problem by make cloning manually
 
@@ -632,11 +632,11 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        ```
        After this step, when making bitbake for **package recipe** again, you may face problem
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/29.ConfigTaskNano.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/29.ConfigTaskNano.png">
 
        I will move to the path that is expected to find **configuration folder**
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/30.checkConfigFolder.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/30.checkConfigFolder.png">
 
        To generate a configuration script (in the same path you get, like the previous image, run this command)
 
@@ -644,7 +644,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        ./autogen.sh
        ```
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/31.ConfigFolderCreated.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/31.ConfigFolderCreated.png">
 
        After those steps, when run this command expected to work smoothly without problems
 
@@ -704,7 +704,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        ```
        will find that the recipetool makes partially resolving to dependencies **DEPENDS = "openssl"** but when going to repo link, will find a lot of dependencies need to resolved
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/32.rpi_depencies.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/32.rpi_depencies.png">
 
        First, I will confirm that these dependencies exist in any layer I have
        Check if I have **avahi** and can also confirm if you have it by run
@@ -714,11 +714,11 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
        find . -name "avahi"
        ```
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/33.avahiRecipe.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/33.avahiRecipe.png">
 
        Check if I have **plist**
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/34.plistDependencies.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/34.plistDependencies.png">
 
        After confirming that I have all of those packages in any layer, I can add them to **dependencies** without problems
 
@@ -732,7 +732,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
        will use ALSA tool that has this Architecture
 
-       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/35.SoundLayers.png">
+       <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/35.SoundLayers.png">
 
        will create **class recipe** to install recipes needed to support audio
 
@@ -858,7 +858,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
      ```
      will get log like this and inform you image created
 
-     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/36.imageCreated.png">
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/36.imageCreated.png">
     
   3. Load SD card with image
 
@@ -873,7 +873,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
      ```
      Then write image to your sd card
 
-     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/37.flashSD.png">
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/37.flashSD.png">
     
   
 
