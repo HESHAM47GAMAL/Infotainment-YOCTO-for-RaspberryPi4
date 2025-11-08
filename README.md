@@ -19,8 +19,8 @@ It includes the following key packages and configurations:
 - `RPI` — for screen mirroring for MAC OS, and `scrcpy` — for screen mirroring for Android OS
 - `ALSA` — for audio playing
 - `Hello Application` — native C++ application
-
-<img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/1.Infotainment_System.png">
+  
+<img src= "https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/1.Infotainment_System.png">
 
 this project is built using **kernel version 5.15.x** and uses **systemd** as the **init system**<br>
 I will follow this **architecture overview**
