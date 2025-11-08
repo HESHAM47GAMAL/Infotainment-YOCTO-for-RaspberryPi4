@@ -1072,3 +1072,70 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
      <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/43.Screnview.jpeg">
 
+  7. 🔊Test audio
+     
+     In this step, I will test the audio to see if will work without any problem   (I connect my headset to Raspberry Pi through audio jack 3.5mm I will hear from it)
+
+	 I will run this cmd to list all sound playback hardware devices that ALSA (Advanced Linux Sound Architecture) can see
+
+	 ```bash
+     apaly -l
+     ```
+     and will get this
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/44.checkaudio.png">
+	
+	 this may be because output audio disabled , so confirm if this root cause will turn it
+
+	 ```bash
+	 nano /boot/config.txt
+	 #will seach about **dtparam=audio** should confirm that uncommented and be **on** to be 
+	 dtparam=audio=on
+	 ```
+	 press **Ctrl + o** then **Enter** then **Ctrl + x**
+
+	 then make **reboot** and run same command
+
+     ```bash
+     apaly -l
+     ```
+     will get
+
+	 <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/45.AudioWork.png">
+	 
+	 will confirm playing local sound will work without problem
+
+	 ```bash
+     aplay /usr/share/sounds/alsa/Front_Center.wav
+     ```
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/46.PlaySound.png">
+
+     This line will work, but you won't hear anything
+     this may happen as when run **apaly -l** find in result that
+     	- `HDMI` - is card 0
+     	- `Headphone` - is card 1
+     So, maybe default audio move to **card 0**
+
+     there are 2 option for fix
+     	- change HW card that used to play audio (Headphone)
+
+          ```bash
+     	  aplay -D plughw:1,0 /usr/share/sounds/alsa/Front_Center.wav
+          ```
+		   After this will hear audio from headphone	 
+     	-  set default output to be Headphone **(Recommended)**
+
+		   ```bash
+     	   nano /etc/asound.conf
+     	   # add this content
+     	   pcm.!default {
+    	   	type hw
+	       	card 1
+	       }
+	
+	       ctl.!default {
+	       	type hw
+	       	card 1
+		   }	
+     	   ```
