@@ -185,7 +185,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
     ```
     will find that it consists of multiple layers
 
-    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/13.recipesOpenEmbedded.png">
+    <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/13.recipesOpenEmbedded.png">
 
     From  Dependencies for **Qt5** we only interested **meta-oe** layer
 
