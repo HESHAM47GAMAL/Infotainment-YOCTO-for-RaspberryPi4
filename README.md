@@ -964,7 +964,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 	   source "${HOME}/Hazem_Course/YOCTO/custom_scripts/flashing.sh"
      fi
      ```
-  2. Let's create image
+  2. Let's create **image**
 
      to do this will create folder as any time will create image should exist in this path and run command
 
@@ -978,7 +978,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
      <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/36.imageCreated.png">
     
-  3. 📥Load SD card with image
+  3. 📥Load **SD card with image**
 
      To avoid any problem, please confirm that SD card formatted (writing zero values)
      
@@ -995,7 +995,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
 	 then unplug SD card and insert it into Raspberry pi
 
-  4. make SSH for your target machine
+  4. make **SSH** for your target machine
 
      Confirm that your raspberry pi Ethernet pluged (your laptop and raspberry pi should conencted with wired ethernet in same network)<br>
 	 I need to see network configuration
@@ -1072,7 +1072,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
      <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/43.Screnview.jpeg">
 
-  7. 🔊Test audio
+  7. 🔊Test **audio**
      
      In this step, I will test the audio to see if will work without any problem   (I connect my headset to Raspberry Pi through audio jack 3.5mm I will hear from it)
 
@@ -1139,7 +1139,7 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 	       	card 1
 		   }	
      	   ```
-  8. ᛒ test Bluetooth and audio
+  8. ᛒ test **Bluetooth and audio**
 
      In this point I will try to connect my phone to Raspberry Pi to through bluetooth and play audio from my phone and hear it from my headphone connected to Raspberry Pi
 
@@ -1170,8 +1170,47 @@ Here, prepare the host machine to be  ready to create an image using YOCTO
 
      <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/49.soundIcon.jpeg">
 
+	 This also logs for Raspberry Pi in terminal indicate that there is right connection
+
+     <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/51.RaspberryPiBluetooth%20connection.png">
+	 
 	 so when play any sound from your phone and find that audio not hearable from headphone side need to do following
 
      <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/50.SetAudioHeadphone.png">
 
      so, currently will be able to hear audio send from phone through Headphone connected though audio jack 3.5mm
+
+  9. Test **Scrcpy**
+
+     To be able to make screen mirroring need to enable **USB debugging mode**
+
+	 I do this by going to **settings** in my phone and go to **About Phone** then press multiple time on **OS version** until I get pop-up informing me that **Debugging mode Enabled** when go to setting again and scroll down will find **Additional Settings** enter then scroll down until find **Developer Options** enter then scroll down and will Find **USB debugging** Enable it
+
+     Connect Your phone to Raspberry pi through **USB** then run following command
+
+     `adb` -  stands for Android Debug Bridge
+
+     It’s a command-line tool that lets your computer(Raspberry Pi4) communicate with Android devices
+
+	 ```bash
+  	 adb devices
+     #if everything work right without problem should get
+  	 #List of devices attached 
+	 #get one device that connected through USB
+     ```
+		
+	 At this point after detect run phone you should following command through your raspberry Pi not through SSH
+
+	 ```bash
+  	 scrcpy
+     ```
+
+	 After this line, screen mirroring will start for your Android device
+
+	 <img src="https://github.com/HESHAM47GAMAL/Infotainment-YOCTO-for-RaspberryPi4/blob/main/images/52.ScreenMirroring.jpeg">
+
+	 👀👀 May face problem that mirroring is very low (notable latency), so can run next line as run screen mirroring with reduce Target Load
+
+     ```bash
+     scrcpy --max-fps=60 --video-bit-rate=2M --max-size=1024
+     ```
